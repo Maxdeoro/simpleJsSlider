@@ -1,31 +1,29 @@
-const slider = {
-    slides: ['smart.jpg', 'cross.jpg', 'fairy.jpg'],
-    frame: 0,   // initial image
-    set: function(image) {
-        document.getElementById("scr").style.backgroundImage = 'url("+image+")';
-    },
-    init: function() {
-        this.set(this.slides[this.frame]);
-    },
-    left: function() {
-        this.frame--;
-        if (this.frame < 0) {
-            this.frame = this.slides.lenght - 1;
-            this.set(this.slides[this.frame]);
-        }
-    },
-    right: function() {
-        this.frame++;
-        if (this.frame == this.slides.length) {
-            this.frame = 0;
-            this.set(this.slides[this.frame]);
-        }
-    },
-};
+let slideIndex = 1;
+showSlides(slideIndex);
 
-window.onload = function() {
-    slider.init();
-    setInterval(function() {
-        slider.right();
-    }, 6000);
-};
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("mySlides");
+  let dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+} 
+// setTimeout(showSlides, 2000); 
